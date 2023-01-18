@@ -14,6 +14,10 @@ const server = http.createServer((req, res) => {
     // Parse the body of the request as x-www-form-urlencoded if Content-Type
       // header is x-www-form-urlencoded
     if (reqBody) {
+      if(req.headers['content-type'] == 'application/json'){
+        req.body = JSON.parse(reqBody);
+      }
+      else{
       req.body = reqBody
         .split("&")
         .map((keyValuePair) => keyValuePair.split("="))
@@ -27,7 +31,7 @@ const server = http.createServer((req, res) => {
       // Log the body of the request to the terminal
       console.log(req.body);
     }
-
+  }
     const resBody = {
       "Hello": "World!"
     };
